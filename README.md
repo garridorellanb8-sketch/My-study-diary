@@ -259,4 +259,9 @@ My-Study-Diary/
 
 This project was created as part of my learning process and as a practical project for the course.
 
+---
+## Certificate
+
+[View my certificate]()
+
 
