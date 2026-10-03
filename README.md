@@ -262,6 +262,6 @@ This project was created as part of my learning process and as a practical proje
 ---
 ## Certificate
 
-[View my certificate]()
+[View my certificate](Certificado-Brian-Garrido-Rellan-pzt5tubv.pdf)
 
 
