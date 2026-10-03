@@ -1,0 +1,25 @@
+# Tasks 001 — Mapa de calor de sesiones de estudio
+
+## Lista de tareas pequeñas (por orden de dependencia)
+
+| [ ] | Tarea | RF | Hecho cuando: |
+|-----|-------|-----|---------------|
+| 1 | Implementar `obtenerSesionesValidas(hoy, sesiones)` en `app.js` <br>Función pura que recibe el objeto `hoy` (Date en hora local) y el array de sesiones, y retorna un nuevo array excluyendo sesiones cuya fecha es posterior a `hoy`. **No toca `localStorage` ni `DOM`**. | RF-4 | ✓ Function recibe los 2 parámetros esperados ✓ Retorna array nuevo (no muta el original) ✓ Excluye sesiones donde `fechaAString(s.fecha) > fechaAString(hoy)` ✓ Incluye sesiones de hoy y días pasados ✓ Maneja array vacío retornando array vacío ✓ Maneja `undefined`/null gracefully retornando array vacío |
+| 2 | Implementar `agruparMinutosPorFecha(sesiones)` en `app.js` <br>Función pura que recibe el array ya filtrado de obtenerSesionesValidas y retorna un `Map<string, number>` donde la clave es `AAAA-MM-DD` y el valor es la suma de minutos para esa fecha. **No realiza operaciones de Date** más allá de usar la string `fecha` existente. | RF-3 | ✓ Function recibe array filtrado de Task 1 ✓ Returns Map con exactamente las claves en formato `AAAA-MM-DD` ✓ Values son números positivos (suma de minutos) ✓ Múltiples sesiones mismo día se suman correctamente ✓ Mapa vacío cuando array está vacío ✓ No usa `toISOString()` ni `new Date()` |
+| 2 | Implementar `calcularMapaCalor(hoy, sesionesAgrupadas)` en `app.js` <br>**Función pura central**. Recibe el objeto `hoy` (Date en hora local) y el Map de `agruparMinutosPorFecha`. Retorna un array de **exactamente 14 objetos** `{fechaString, minutos, intensidad}` donde: <br>- `fechaString` es `AAAA-MM-DD` para cada uno de los 14 días (hoy + 13 días hacia atrás) <br>- `minutos` es el total de minutos para ese día (0 si no hay sesión) <br>- `intensidad` es 0 (gris), 1 (base), 2 (medio) o 3 (saturado) según umbrales: 0 min=0, 1-15=1, 16-60=2, 61+=3. **Sin `toISOString()`, sin `new Date()`, sin `localStorage`, sin `DOM`**. | RF-2, RF-3 | ✓ Function recibe los 2 parámetros esperados ✓ Retorna array de exactamente 14 objetos ✓ Cada objeto tiene las 3 propiedades esperadas (fechaString, minutos, intensidad) ✓ `intensidad === 0` cuándo `minutos === 0` ✓ `intensidad === 1` cuándo `1 ≤ minutos ≤ 15` ✓ `intensidad === 2` cuándo `16 ≤ minutos ≤ 60` ✓ `intensidad === 3` cuándo `minutos ≥ 61` ✓ Longitud del array siempre es 14 a pesar de la fecha de hoy |
+| 3 | Crear `docs/001-heat-map/heat-map.test.mjs` con 5 cases de test <br>Archivo de tests unitarios con `node --test` para validar las 3 funciones puras. | RF-2, RF-3, RF-4 | ✓ File exists at `docs/001-heat-map/heat-map.test.mjs` ✓ All 5 test cases pass with `node --test` ✓ No rojo en la salida del test ✓ Test 1: `calcularMapaCalor(hoy, mapaVacio)` → array[14] con todos intensidad 0 ✓ Test 2: `calcularMapaCalor(hoy, mapaUnDia)` → hoy intensidad 1, resto 0 ✓ Test 3: `calcularMapaCalor(hoy, mapaMultiplesDías)` → hoy=3, hace 2 días=1, resto 0 ✓ Test 4: `obtenerSesionesValidas(hoy, sesionesConFuturo)` → filtra correcto ✓ Test 5: `agruparMinutosPorFecha(sesiones)` → Map correcto con sumas |
+| 4 | Añadir sección grid del mapa de calor a `index.html` <br>Añadir `<section class="heat-map">` con 14 celdas `<div class="dia" data-día="i">` (i de 0 a 13, donde 0 = hoy). **La lógica de color la asigna JavaScript; el HTML solo provee la estructura.** | RF-1 | ✓ index.html contiene `<section class="heat-map">` ✓ Contiene 14 `<div class="dia">` elementos ✓ Cada uno tiene `data-día` attribute del 0 al 13 ✓ Section tiene label accesible (aria-label="Mapa de calor de sesiones") ✓ Grid está al final del body o en sección correspondiente |
+| 5 | Añadir CSS styles para los colores del mapa de calor en `styles.css` <br>Definir las 4 clases `.dia-gris`, `.dia-base`, `.dia-medio`, `.dia-saturado` con los colores del gradiente: gray (#e0e0e0) para 0 min, color base (#a8e6cf) para 1-15 min, color medio (#5dd9c6) para 16-60 min, color saturado (#2c9a6f) para 61+ min. **Sin dependencias, CSS puro.** | RF-2 | ✓ `.dia-gris { background: #e0e0e0; }` defined ✓ `.dia-base { background: #a8e6cf; }` defined ✓ `.dia-medio { background: #5dd9c6; }` defined ✓ `.dia-saturado { background: #2c9a6f; }` defined ✓ Los colores tienen suficiente contraste para legibilidad del texto en blanco/negro ✓ Las clases son consistentes con las asignadas en Task 5 HTML |
+
+## Dependencia entre tareas
+
+```
+Task 1 → Task 2 → Task 3 → Task 4
+     ↓              ↓
+   (base)      (usa Task 1-2)     (usa Task 1-2)
+     
+Task 5 (UI) puede paralelizarse con Task 6 (CSS) después de Task 3
+      (usa la estructura HTML, usa los styles)
+```
+
+**Nota**: Las Tasks 1-3 son lógicas/puras y deben completarse antes de los tests (Task 4). Las Tasks 5-6 son de interfaz y pueden trabajarse una vez que la lógica esté definida (después de Task 3), aunque los tests validan la lógica primero.

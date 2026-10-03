@@ -1,0 +1,849 @@
+/* ==== Diario de Estudio v3 — Scholarly Journal Design System ==== */
+
+/* Tokens de color (paleta de revista académica) */
+:root {
+  --paper: #FDFBF7;
+  --ink: #1C1B1B;
+  --ink-muted: #6B6969;
+  --gold: #C8962E;
+  --gold-soft: #F5ECD9;
+  --rule: #E8E4DC;
+  --shadow: 0 1px 3px rgba(28,27,27,0.06), 0 4px 12px rgba(28,27,27,0.04);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+}
+
+/* Tema oscuro */
+[data-theme="dark"] {
+  --paper: #1A1A18;
+  --ink: #F5F3F0;
+  --ink-muted: #A8A4A0;
+  --gold: #D4A83E;
+  --gold-soft: #2E281A;
+  --rule: #3A3630;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Reset base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Eliminar transiciones globales que choquen con las intencionales */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: calc(var(--spacing) * 1.5);
+}
+
+/* Redefinir --spacing desde acá */
+body {
+  --spacing: 24px;
+}
+
+/* Contenido centrado: sin esto el texto se estira a 1440 px de ancho (CF-32) */
+main.container {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+/* ==== Header ==== */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+  margin-bottom: calc(var(--spacing) * 0.75);
+  padding-bottom: calc(var(--spacing) * 0.75);
+  border-bottom: 1px solid var(--rule);
+}
+
+header h1 {
+  font-family: 'Literata', serif;
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+  min-width: 200px;
+  margin: 0;
+}
+
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--paper);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--gold-soft);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  stroke: var(--ink);
+  fill: none;
+}
+
+/* ==== Streak Marquee — El Héroe ==== */
+.streak {
+  display: flex;
+  gap: calc(var(--spacing) * 0.5);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.streak-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-md);
+  padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 0.75);
+  min-width: 130px;
+  color: var(--gold);
+}
+
+.streak-item:hover {
+  background: var(--gold);
+  color: var(--paper);
+}
+
+.streak-fire {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.streak-number {
+  font-family: 'Literata', serif;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.streak-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+/* ==== Form Section ==== */
+.form-section {
+  margin-bottom: calc(var(--spacing) * 1.25);
+}
+
+.form-section h2 {
+  font-family: 'Literata', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+.form-group {
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+.form-group label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--ink-muted);
+  opacity: 0.6;
+}
+
+/* Textarea auto-resize */
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+  margin-top: 4px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--gold);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: calc(var(--spacing) * 0.25);
+}
+
+.btn-primary:hover {
+  background: #B58522;
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+
+/* Botón secundario: fondo dorado con texto en --paper, igual que .btn-primary
+   pero más contenido. El texto dorado sobre crema solo daba 2.6:1 en el tema
+   claro; así se lee en los dos temas sin cambiar ninguna variable.
+   La regla de .notes-editor-actions solo ajusta el tamaño, así que sigue
+   mandando allí y esos botones conservan su aspecto. */
+.btn-secondary {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 16px;
+  background: var(--gold);
+  color: var(--paper);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--gold);
+  color: var(--paper);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Un botón deshabilitado no responde al ratón y se ve más apagado.
+   El fondo también cambia: si solo se cambiara el texto, seguiría siendo un
+   bloque dorado con texto gris encima. El borde se queda en --ink-muted para
+   que la caja siga viéndose contra el papel (con --rule quedaba a 1.2:1). */
+.btn-secondary:disabled {
+  background: var(--rule);
+  color: var(--ink-muted);
+  border-color: var(--ink-muted);
+  cursor: not-allowed;
+}
+
+/* ==== Heat Map Section ==== */
+.heat-map-section {
+  margin-top: calc(var(--spacing) * 1.25);
+}
+.heat-map-section h2 {
+  font-family: 'Literata', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+.heat-map-grid {
+  display: grid;
+  /* minmax(0, 1fr) en vez de 1fr: sin el 0, cada columna no baja del ancho
+     mínimo de su contenido (el texto "45 min") y el mapa se sale de la pantalla
+     en móvil (CF-31). */
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  gap: calc(var(--spacing) * 0.25);
+  padding: calc(var(--spacing) * 0.5) 0;
+}
+
+.dia {
+  aspect-ratio: 1;
+  background: #e0e0e0;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  transition: background 0.2s;
+  cursor: default;
+  /* En pantallas estrechas la celda es más pequeña que el texto: se oculta
+     para que las cifras no se solapen ni corten a media palabra. */
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* El texto de los minutos solo si la celda tiene sitio para enseñarlo entero */
+.dia:not(:empty) {
+  padding: 2px;
+}
+
+/* En móvil 14 columnas no caben: con "45 min" dentro harían falta ~526 px y
+   solo hay ~248 px. En vez de recortar los números (que sería ilegible), el
+   mapa se desplaza DENTRO de su propia caja: la página no genera scroll
+   horizontal (CF-31) y las cifras se siguen leyendo. */
+@media (max-width: 480px) {
+  .heat-map-grid {
+    grid-template-columns: repeat(14, 34px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dia {
+    font-size: 0.625rem;
+  }
+}
+
+.dia-gris {
+  background: #e0e0e0;
+}
+
+.dia-base {
+  background: #a8e6cf;
+}
+
+.dia-medio {
+  background: #5dd9c6;
+}
+
+.dia-saturado {
+  background: #2c9a6f;
+}
+
+.dia:hover {
+  opacity: 0.8;
+}
+
+.sessions-section h2 {
+  font-family: 'Literata', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+/* Lista sin bullets, con reglas horizontales */
+.sessions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Lista sin bullets, con reglas horizontales */
+.sessions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sessions-list::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin: calc(var(--spacing) * 0.5) 0;
+}
+
+.session-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: calc(var(--spacing) * 0.75) calc(var(--spacing) * 1.5);
+  align-items: center;
+  padding: calc(var(--spacing) * 0.75) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.session-item:last-child {
+  border-bottom: none;
+  padding-bottom: calc(var(--spacing) * 0.75);
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+.session-item[data-notes="true"] {
+  grid-template-columns: auto 1fr auto auto;
+  gap: calc(var(--spacing) * 0.75) calc(var(--spacing) * 1.5) var(--spacing);
+}
+
+.session-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+  align-self: start;
+}
+
+.session-topic {
+  font-family: 'Literata', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.session-minutes {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-soft);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* Acciones de sesión (editar/borrar) */
+.session-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.session-actions button {
+  padding: 6px 10px;
+  font-size: 1rem;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.session-actions button:hover {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+.session-actions .session-delete:hover {
+  background: #fee;
+  border-color: #e00;
+  color: #c00;
+}
+
+/* Notas inline */
+.session-notes-inline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  margin-top: 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Tooltip/expand para notas largas (solo si hay espacio) */
+.session-notes-expand {
+  cursor: pointer;
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Notas renderizadas (nuevo estilo generado por JS) */
+.session-notes {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+
+.notes-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 60px; /* ~3 líneas */
+  overflow: hidden;
+  transition: max-height 0.2s;
+}
+
+.notes-text.expanded {
+  max-height: none;
+}
+
+.notes-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.notes-btn {
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.notes-btn:hover {
+  background: var(--gold);
+  color: var(--paper);
+}
+
+/* Editor de notas inline */
+.notes-editor {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+.notes-edit-input {
+  width: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  padding: 8px 12px;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 80px;
+  resize: vertical;
+}
+
+.notes-edit-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+
+.notes-editor-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.notes-editor-actions .btn-secondary,
+.notes-editor-actions .btn-primary {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+}
+
+/* "Cancelar" no puede verse igual que "Guardar": se deja como botón de
+   contorno, con el texto en --ink para que se lea en los dos temas. */
+.notes-editor-actions .btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--gold);
+}
+
+.notes-editor-actions .btn-secondary:hover {
+  background: var(--gold-soft);
+  color: var(--ink);
+}
+
+/* Añadir clase notes-toggle al botón en HTML para estilos */
+#notes-toggle.notes-toggle {
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: all 0.2s;
+}
+
+#notes-toggle.notes-toggle:hover {
+  background: var(--gold);
+  color: var(--paper);
+}
+
+/* ==== Empty State ==== */
+.empty-message {
+  text-align: left;
+  color: var(--ink-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  padding: calc(var(--spacing) * 2) 0;
+}
+
+.empty-message p {
+  margin: 0;
+}
+
+/* ==== Objetivo de la semana ==== */
+.objetivo-semana {
+  margin-top: calc(var(--spacing) * 1.25);
+}
+
+/* Mismo estilo de título que las otras secciones */
+.objetivo-semana h2 {
+  font-family: 'Literata', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+/* Navegación entre semanas */
+.objetivo-semana-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 0.5);
+  margin-bottom: calc(var(--spacing) * 0.75);
+}
+
+/* El rótulo de la semana se queda en el centro y puede ocupar todo el ancho */
+.objetivo-rango {
+  flex: 1 1 100%;
+  order: -1;
+  text-align: center;
+  font-family: 'Literata', serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  /* El texto largo (meses distintos) debe poder partirse sin romper la caja */
+  overflow-wrap: break-word;
+}
+
+/* Barra de progreso: la pista vacía */
+.objetivo-barra {
+  width: 100%;
+  height: 12px;
+  background: var(--rule);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+
+/* El relleno: el avance. La transición solo aquí, no global */
+.objetivo-barra-relleno {
+  width: 0;
+  height: 100%;
+  background: var(--gold);
+  border-radius: var(--radius-sm);
+  transition: width 0.2s;
+}
+
+.objetivo-minutos {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Estado "cumplido". El texto va en --ink, no en --gold: sobre el crema del
+   tema claro el dorado solo da 2.6:1 y no se leería. El dorado se queda para
+   el relleno de la barra. El estado NUNCA se comunica solo con color: siempre
+   con su frase "Objetivo cumplido 🎉" (requisito de accesibilidad). */
+.objetivo-cumplido {
+  font-family: 'Literata', serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 4px;
+}
+
+.objetivo-sin-objetivo {
+  margin-bottom: calc(var(--spacing) * 0.75);
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
+/* Los minutos sin objetivo van justo debajo de la llamada a la acción: un poco
+   de margen para que se lean como dos ideas y no como una sola línea (CF-27). */
+.objetivo-sin-objetivo .objetivo-minutos {
+  margin-top: 4px;
+}
+
+.objetivo-form .btn-primary {
+  margin-top: calc(var(--spacing) * 0.25);
+}
+
+/* Mensaje de validación: se apoya en --ink + peso, no en un color rojo fijo */
+.objetivo-error {
+  margin-top: calc(var(--spacing) * 0.5);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Confirmación de guardado. Mismo criterio que arriba: texto en --ink para que
+   se lea en los dos temas. */
+.objetivo-guardado {
+  margin-top: calc(var(--spacing) * 0.5);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Quitar objetivo: ancho completo, debajo del formulario */
+.objetivo-borrar {
+  width: 100%;
+  margin-top: calc(var(--spacing) * 0.5);
+}
+
+/* ==== Accessibility ==== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reducir motion si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+/* Footer. Ojo: el selector lleva punto a propósito (.bgr-footer). Sin él sería
+   un selector de tipo y buscaría una etiqueta <bgr-footer>, que no existe. */
+.bgr-footer {
+  width: 100%;
+  padding: 70px 20px 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  color: var(--ink-muted);
+}
+
+/* Logo. Las letras van en --ink y no en --gold: sobre el crema del tema claro el
+   dorado solo da 2.6:1 y no se leería. */
+.bgr-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -4px;
+
+  color: var(--ink);
+
+  padding: 10px 15px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+
+  transition: 0.3s ease;
+}
+
+.bgr-mark span:nth-child(2) {
+  opacity: 0.8;
+}
+
+.bgr-mark span:nth-child(3) {
+  opacity: 0.55;
+}
+
+/* Línea decorativa. Sin opacity: --rule ya es un color suave por sí mismo, y
+   bajarle la opacidad la volvía invisible en el tema claro. */
+.bgr-line {
+  width: 35px;
+  height: 2px;
+  margin-top: 14px;
+  margin-bottom: 10px;
+
+  background: var(--rule);
+  border-radius: 10px;
+}
+
+/* Texto */
+.bgr-footer p {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.bgr-footer strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Animación al pasar el ratón */
+.bgr-mark:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+}

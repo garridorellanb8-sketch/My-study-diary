@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diario de Estudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,400&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;0,7..72,700;1,7..72,400&display=swap"></noscript>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Diario de Estudio</h1>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema" aria-pressed="false"></button>
+      <div class="streak" id="streak-display">
+        <div class="streak-item">
+          <span class="streak-fire">🔥</span>
+          <span class="streak-number" id="streak-current">0</span>
+          <span class="streak-label">actual</span>
+        </div>
+        <div class="streak-item">
+          <span class="streak-fire">🏆</span>
+          <span class="streak-number" id="streak-best">0</span>
+          <span class="streak-label">mejor</span>
+        </div>
+        <div class="streak-item">
+          <span class="streak-fire">📅</span>
+          <span class="streak-number" id="streak-month">0</span>
+          <span class="streak-label">este mes</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="form-section">
+      <h2>Nueva sesión</h2>
+      <form id="session-form">
+        <div class="form-group">
+          <label for="date">Fecha</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="topic">Tema</label>
+          <input type="text" id="topic" name="topic" placeholder="Ej: JavaScript, React, Algoritmos..." required>
+        </div>
+        <div class="form-group">
+          <label for="minutes">Minutos</label>
+          <input type="number" id="minutes" name="minutes" min="1" placeholder="Ej: 45" required>
+        </div>
+        <div class="form-group" id="notes-group" hidden>
+          <label for="notes">Apuntes</label>
+          <textarea id="notes" name="notes" placeholder="Apuntes (opcional)..." maxlength="2000" rows="4"></textarea>
+        </div>
+        <button type="button" id="notes-toggle" class="notes-toggle">Añadir apuntes</button>
+        <button type="submit" class="btn-primary">Guardar sesión</button>
+      </form>
+    </section>
+
+    <section class="sessions-section">
+      <h2>Sesiones</h2>
+      <ul id="sessions-list" class="sessions-list"></ul>
+      <p id="empty-message" class="empty-message" hidden>No hay sesiones todavía. ¡Añade la primera arriba!</p>
+    </section>
+
+    <!-- Objetivo de la semana: los valores de la barra, el rótulo y el campo
+         los rellena renderObjetivoSemana() en app.js. Sin objetivo no se
+         muestra la barra, solo el mensaje "Fijar objetivo de esta semana". -->
+    <section class="objetivo-semana">
+      <h2>Objetivo de la semana</h2>
+
+      <div class="objetivo-semana-nav">
+        <button type="button" id="objetivo-semana-anterior" class="btn-secondary">Semana anterior</button>
+        <p id="objetivo-rango" class="objetivo-rango"></p>
+        <button type="button" id="objetivo-semana-siguiente" class="btn-secondary" disabled>Semana siguiente</button>
+      </div>
+
+      <!-- Con objetivo: barra de progreso (oculta al inicio, T8 la muestra) -->
+      <div id="objetivo-progreso" hidden>
+        <div id="objetivo-barra" class="objetivo-barra"
+             role="progressbar"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="0"
+             aria-valuetext="">
+          <div id="objetivo-barra-relleno" class="objetivo-barra-relleno"></div>
+        </div>
+        <p id="objetivo-minutos" class="objetivo-minutos"></p>
+        <p id="objetivo-cumplido" class="objetivo-cumplido" hidden>Objetivo cumplido 🎉</p>
+      </div>
+
+      <!-- Sin objetivo fijado: la llamada a la acción se muestra SIEMPRE, y los
+           minutos estudiados se añaden debajo si son más de 0 (CF-27). -->
+      <div id="objetivo-sin-objetivo">
+        <p id="objetivo-sin-objetivo-texto" class="objetivo-sin-objetivo">Fijar objetivo de esta semana</p>
+        <p id="objetivo-sin-objetivo-minutos" class="objetivo-minutos" hidden></p>
+      </div>
+
+      <!-- El campo y su botón están SIEMPRE visibles, con o sin objetivo.
+           novalidate desactiva el aviso propio del navegador: el mensaje de
+           error es el de la aplicación (CF-9, CF-11). -->
+      <form id="objetivo-form" class="objetivo-form" novalidate>
+        <div class="form-group">
+          <label for="objetivo-minutos-input">Objetivo de la semana en minutos</label>
+          <input type="number" id="objetivo-minutos-input" name="objetivo"
+                 min="1" max="100000" step="1" required placeholder="Ej: 300">
+        </div>
+        <button type="submit" class="btn-primary">Guardar objetivo</button>
+        <p id="objetivo-error" class="objetivo-error" hidden></p>
+        <p id="objetivo-guardado" class="objetivo-guardado" hidden>Objetivo guardado</p>
+      </form>
+
+      <!-- Solo aparece si la semana tiene objetivo (CF-47) -->
+      <button type="button" id="objetivo-borrar" class="btn-secondary objetivo-borrar" hidden>Quitar objetivo</button>
+    </section>
+
+    <section class="heat-map-section">
+      <h2>Mapa de calor</h2>
+      <p>Estadísticas visuales de tus últimas 2 semanas de estudio.</p>
+      <div class="heat-map-grid" id="heat-map-grid">
+        <!-- 14 celdas se generarán con JavaScript -->
+      </div>
+    </section>
+  </main>
+<footer class="bgr-footer">
+  <div class="bgr-mark">
+    <span>B</span>
+    <span>G</span>
+    <span>R</span>
+  </div>
+
+  <div class="bgr-line"></div>
+
+  <p>
+    Built by <strong>BGR</strong>
+  </p>
+</footer>
+  <script src="app.js"></script>
+</body>
+</html>
