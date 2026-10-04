@@ -56,4 +56,4 @@ Reviewer (revisor encargado de revisar todo)
 23.al final del video nos presentaba su master de desarollo con IA.
 24.Y acabo el curso.
 # Certificacion
-Certificado-Brian-Garrido-Rellan-pzt5tubv.pdf
+Certificado-Brian-Garrido-Rellan-pzt5tubv.pdf (esta en los archivos del repositorio de segundo)
