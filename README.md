@@ -57,3 +57,103 @@ Reviewer (revisor encargado de revisar todo)
 24.Y acabo el curso.
 # Certificacion
 Certificado-Brian-Garrido-Rellan-pzt5tubv.pdf (esta en los archivos del repositorio de segundo)
+
+
+# Deutsche version
+# Mein Lerntagebuch
+
+## Was ist es?
+
+##### Es ist eine Anwendung, um Informatikschüler zu motivieren, weiterzulernen, mit Lernserien und Zielen.
+
+## Funktionen
+
+*Sie hat einen Button, um die Farben der Anwendung zu ändern. Wenn man zum Beispiel auf die Sonne klickt, wird die ganze Anwendung weiß, gelb und allgemein in hellen Farben dargestellt, und wenn man auf den Mond klickt, ist es genau das Gegenteil.
+
+#
+
+* Sie hat einen Bereich mit 3 Markierungen. Eine zeigt, wie viele „Streaks du aktuell hast“, eine zeigt, was dein „Streak-Rekord“ war, und eine zeigt, wie viele „Streaks du diesen Monat hast“.
+
+#
+
+* Sie hat einen Bereich zum Erstellen einer „Session“, in dem man „Datum“, „was du gelernt hast“ und „wie lange du gelernt hast (in Min.)“ eingeben muss.
+
+#
+
+* Nachdem du den letzten Schritt eingegeben hast, gibt es optional den Bereich „Notizen“, in dem du wichtige Dinge aufschreiben kannst oder einfach Dinge, die du von dem Gelernten nicht vergessen möchtest.
+
+#
+
+* Danach gibt es den Bereich „Sessions“, in dem du die Sessions, die du mit den letzten 2 Bereichen erstellt hast, bearbeiten oder löschen kannst.
+
+#
+
+* Unter dem Bereich „Sessions“ gibt es den Bereich „Wochenziele“, in dem du dir ein Ziel für 2 Wochen setzen und versuchen kannst, es als Motivation zu erreichen.
+
+#
+
+* Unter den Session-Zielen gibt es die Heatmap, die zeigt, wie viel du alle 2 Wochen lernst.
+
+## Warum habe ich es gemacht?
+
+### Dieses Projekt ist tatsächlich mein Abschlussprojekt des Kurses „Entwicklung mit KI – der neue Programmierer“ von „Brais Mouredev“. Hier ist der Link zum ersten Tag: https://www.youtube.com/live/qHYi92zRn-s.
+
+#
+
+### Und ja, ich habe es mit KI gemacht, aber ich habe dabei sehr viele interessante Dinge gelernt, die für die Entwicklung einer Anwendung sehr nützlich sind. Denn einem wird nicht beigebracht, wie man einer KI kontrolliert und verantwortungsvoll sagt, was sie machen soll, und das Wichtigste: „zu jedem Zeitpunkt zu wissen, was sie macht“.
+
+#
+
+## Wie habe ich es gemacht?
+
+1. Ich habe den Kurs verfolgt und die Notizen verwendet, die er uns mit den Prompts und Erklärungen zur Vorgehensweise gegeben hat. Gleichzeitig habe ich auch das Video angeschaut, um zu wissen, wie man es praktisch macht.
+
+2. Der Kurs begann damit, dass er uns erklärte, was wichtig ist, um Entwickler zu sein, und dass sich die Branche mit dem Aufkommen der KI im Jahr 2023 verändert hat und wir uns daran anpassen müssen.
+
+3. Danach erklärte er uns wichtige Begriffe, die wir kennen mussten, zum Beispiel LLMs.
+
+4. Anschließend zeigte er uns die besten Tools für den Kurs. Da er sich für OpenCode und Cursor entschieden hatte, entschied ich mich auch, OpenCode herunterzuladen und danach VS Code als Editor zu verwenden.
+
+5. Nachdem ich die Tools hatte, erklärte er uns zunächst, wie man einen klassischen Prompt mit Rolle → Kontext → genaue Aufgabe → Einschränkungen oder Regeln → Ausgabeformat erstellt.
+
+6. Danach haben wir den ersten klassischen Prompt gestartet, um eine erste Version der Anwendung zu erstellen, mit der wir die Anwendung mithilfe der Agents weiterentwickeln konnten. Gleichzeitig haben wir die Anwendung auch verwendet, um die Agents zu entwickeln.
+
+7. Danach erklärte er uns, dass Prompts immer im Markdown-Format geschrieben werden, außer wenn es sich um eine kurze, kleine Entscheidung, eine Frage oder etwas Ähnliches handelt, das nicht sehr wichtig ist.
+
+8. Danach erstellten wir die `AGENTS.md`, in der wir sozusagen festlegen, wie der Agent genau arbeiten soll, indem wir bestimmte Fragen abdecken, zum Beispiel den Arbeitsablauf oder Verbote usw.
+
+9. Danach erklärte er uns, was `/init` in OpenCode ist und dass es dazu dient, den Agenten die `AGENTS.md` erstellen zu lassen. Ich persönlich denke jedoch, dass das nicht viel Sinn macht, weil wir am Ende selbst die Kontrolle darüber haben müssen. Ich würde sie deshalb selbst erstellen und es nicht den Agenten machen lassen.
+
+10. Danach erklärte er uns, was eine `MEMORY.md` ist. Sie ist eine Datei, damit der Agent, der sie beim nächsten Mal liest, weiß, wie er weitermachen soll und in welchem Zustand sich die Anwendung befindet. Sie ist so etwas wie ein kurzer, fester Speicher, damit der Agent beim nächsten Mal weiß, wie er weitermachen soll, also eine Art Dokumentation.
+
+11. Danach erklärte er uns, wann man den Plan- oder Build-Modus in OpenCode verwendet → der eine dient zum Planen und der andere zum Implementieren.
+
+12. Er erklärte uns auch, wann man den einen oder den anderen Modus verwenden sollte.
+
+13. Danach erklärte er uns am zweiten Tag, was Commands und Skills sind, welche Unterschiede es gibt und wie man sie erstellt → Commands sind so etwas wie eine Abkürzung für den Benutzer und Skills sind, wie der Name schon sagt, Fähigkeiten, die ähnlich wie Commands sind, aber vom Agenten verwendet werden können, ohne dass der Benutzer sie im Chat starten muss.
+
+14. Danach zeigte er uns, wie man offizielle Skills von offiziellen Seiten herunterlädt, damit man sie nicht jedes Mal selbst erstellen muss.
+
+15. Danach erklärte er uns, was MCPs sind und wie man sie in das Projekt integriert, zum Beispiel Chrome DevTools, das wir hauptsächlich verwendet haben, um das Projekt zu überprüfen und zu sehen, ob alles richtig funktioniert. Außerdem empfahl er uns Context7 und erklärte uns, dass es sich dabei um einen MCP handelt, damit der Agent möglichst aktuelle Informationen hat.
+
+16. Danach gingen wir zum Spec-Driven Development (SDD) über. Das ist ein sehr komplexer Arbeitsablauf, um mit einer guten Planung zu entwickeln → danach eine Überprüfung → danach die Implementierung → danach wieder eine Überprüfung → und dann ist es fertig.
+
+17. Danach haben wir es im Projekt implementiert und einen Skill erstellt, der den gesamten SDD-Ablauf beschreibt, damit der Agent ihn jedes Mal verwenden kann, wenn er benötigt wird.
+
+18. Am Ende gab er uns als Übung die Aufgabe, jedes SDD-Element als einen eigenen Command zu erstellen, und genau das habe ich gemacht.
+
+19. Der dritte Tag war der beste von allen und auch der interessanteste, weil wir buchstäblich alles automatisiert haben, was wir zuvor mit Agents und Subagents gemacht hatten.
+
+20. Er begann damit, uns den Unterschied zwischen Agent und Subagent zu erklären → der Agent ist derjenige, mit dem man im OpenCode-Chat spricht, und der Subagent ist derjenige, der im Hintergrund arbeitet, während der Agent mit einem spricht.
+
+21. Danach erstellten wir unsere Gruppe aus Agents und Subagents, die so aussah: Coordinator (Agent) gibt Anweisungen an ↓ Planner (derjenige, der den Plan erstellt) ↓ Implementer (derjenige, der den Plan umsetzt) ↓ Reviewer (Prüfer, der alles überprüft).
+
+22. Danach erstellten wir die Beschreibung dafür, was jeder einzelne machen muss, damit alles funktioniert.
+
+23. Am Ende des Videos stellte er uns seinen Masterkurs für Entwicklung mit KI vor.
+
+24. Und damit war der Kurs beendet.
+
+# Zertifizierung
+
+`Certificate-Brian-Garrido-Rellan-pzt5tubv.pdf` (befindet sich in den Dateien des zweiten Repositorys)
