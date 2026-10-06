@@ -48,3 +48,14 @@ Für mich bedeutet es, zu lernen, wie man KI als Werkzeug benutzt, zu verstehen,
 
 Genau das wollte ich mit diesem Projekt lernen.
 
+# Wo habe ich es gelernt?
+## Bei einem Kurs über "mit KI programmieren" von Brais Mouredev.
+### Hier ist der Link zum ersten video:"https://www.youtube.com/live/qHYi92zRn-s"
+#### Die App funktionen die ich selber hinzugefügt habe und das sind die nächsten:
+* Der button um zwischen hellem und dunklem Modus zu wechseln.
+* Der Notizen bereich habe auch ich erfunden.
+
+# Wie kann diese App nutzen?
+1. Die Dateien **html und CSS herunterladen**
+2. In einen Browser öffnen
+3. Und dan kannst du sie schon nutzen!
